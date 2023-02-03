@@ -1,3 +1,5 @@
+import { FaArrowUp } from 'react-icons/fa';
+
 const Card = ({ singleData, index }) => {
   const { create_at, id, like, photo, title, update_a, user_id, username } =
     singleData;
@@ -29,8 +31,11 @@ const Card = ({ singleData, index }) => {
           {username ? username : 'username not found'}
         </p>
       </td>
-      <td className="w-4/12 text-end mr-4">
-        <p>{like ? like : 'like'}</p>
+      <td className="w-4/12 text-end mr-4 ">
+        <p className="inline-flex items-center">
+          {like ? like : 'like'}
+          <FaArrowUp className="ml-[9px] inline-block text-[#9BFF00]" />
+        </p>
       </td>
     </tr>
   );

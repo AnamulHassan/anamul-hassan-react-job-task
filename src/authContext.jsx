@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router';
 import MkdSDK from './utils/MkdSDK';
 
 export const AuthContext = React.createContext();
@@ -10,6 +11,11 @@ const initialState = {
   token: null,
   role: null,
 };
+
+// const navigate = () => {
+//   const navigateTo = useNavigate();
+//   return navigateTo;
+// };
 
 const reducer = (state, action) => {
   // console.log('login data', action);
@@ -26,6 +32,7 @@ const reducer = (state, action) => {
       };
     case 'LOGOUT':
       localStorage.clear();
+      // navigateTo('/admin/login');
       return {
         ...state,
         isAuthenticated: false,

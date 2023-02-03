@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import MkdSDK from '../utils/MkdSDK';
 import Card from './Card';
 import Navbar from './Navbar';
+import { FaAngleDown } from 'react-icons/fa';
 
 const AdminDashboardPage = () => {
   let sdk = new MkdSDK();
@@ -27,7 +28,7 @@ const AdminDashboardPage = () => {
   return (
     <>
       {data?.length > 0 ? (
-        <div className="w-full flex items-center flex-col bg-[#111111] h-screen ">
+        <div className="w-full flex items-center flex-col bg-[#111111] h-screen overflow-y-scroll py-12">
           <Navbar />
           <div className="w-[1216px] flex justify-between items-center mt-[92px]">
             <h2 className="text-[40px] font-thin leading-[48px]">
@@ -47,11 +48,14 @@ const AdminDashboardPage = () => {
           <div className="w-[1216px] flex justify-between items-center">
             <table className="w-full">
               <thead>
-                <tr className="flex justify-between items-center text-base font-thin px-1 my-2">
+                <tr className="flex justify-between items-center text-[#666666] text-base font-thin px-1 my-2">
                   <th className="w-1/12 text-center">#</th>
                   <th className="w-5/12">Title</th>
                   <th className="w-2/12">Author</th>
-                  <th className="">Most Liked</th>
+                  <th className="flex items-center justify-center ">
+                    Most Liked{' '}
+                    <FaAngleDown className="text-[#696969] ml-[5px] text-xl" />
+                  </th>
                 </tr>
               </thead>
               <tbody className="space-y-3">
