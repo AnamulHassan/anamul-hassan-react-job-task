@@ -5,9 +5,7 @@ import { ItemTypes } from '../utils/items';
 
 const Card = ({ singleData, index, moveCard, pageCount }) => {
   const ref = useRef(null);
-  const { create_at, id, like, photo, title, update_a, user_id, username } =
-    singleData;
-  // console.log(singleData);
+  const { id, like, photo, title, username } = singleData;
 
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -55,13 +53,17 @@ const Card = ({ singleData, index, moveCard, pageCount }) => {
   return (
     <tr
       ref={ref}
-      // style={{ opacity }}
+      style={{ opacity }}
       data-handler-id={handlerId}
       className="flex justify-between items-center h-24 border-[1px] rounded-2xl border-[rgba(255, 255, 255, 0.12)] hover:border-[#DBFD51] duration-300 hover:bg-white hover:bg-opacity-10 cursor-grab"
     >
       <td className="w-1/12 text-center">{(pageCount - 1) * 10 + index + 1}</td>
       <td className="w-5/12 flex justify-start items-center">
         <img
+          onError={e =>
+            (e.currentTarget.src =
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9880s8lk_z7qQgpcSbtFcBUNI74CDENbVyw&usqp=CAU')
+          }
           className="w-[118px] h-[64px] rounded-lg mr-4"
           src={
             photo
@@ -76,6 +78,10 @@ const Card = ({ singleData, index, moveCard, pageCount }) => {
       </td>
       <td className="w-2/12 flex items-center space-x-2">
         <img
+          onError={e =>
+            (e.currentTarget.src =
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZbOI9OHTBJi7XldL-6YXEeacY5cQfnAr9LQ&usqp=CAU')
+          }
           className="w-6 h-6 rounded-full"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZbOI9OHTBJi7XldL-6YXEeacY5cQfnAr9LQ&usqp=CAU"
           alt={username ? username : 'username not found'}

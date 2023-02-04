@@ -51,12 +51,6 @@ export default function MkdSDK() {
   };
 
   this.callRestAPI = async function (payload, method) {
-    // const header = {
-    //   'Content-Type': 'application/json',
-    //   'x-project': base64Encode,
-    //   Authorization: 'Bearer ' + localStorage.getItem('token'),
-    // };
-
     switch (method) {
       case 'GET':
         console.log(this._header);

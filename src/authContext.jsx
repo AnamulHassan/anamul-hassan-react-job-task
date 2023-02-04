@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router';
+import { showToast } from './globalContext';
 import MkdSDK from './utils/MkdSDK';
 
 export const AuthContext = React.createContext();
@@ -12,13 +13,7 @@ const initialState = {
   role: null,
 };
 
-// const navigate = () => {
-//   const navigateTo = useNavigate();
-//   return navigateTo;
-// };
-
 const reducer = (state, action) => {
-  // console.log('login data', action);
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('token', action.payload.userData.token);
@@ -32,11 +27,16 @@ const reducer = (state, action) => {
       };
     case 'LOGOUT':
       localStorage.clear();
-      // navigateTo('/admin/login');
       return {
         ...state,
         isAuthenticated: false,
         user: null,
+      };
+    case 'USER_VERIFY':
+      return {
+        ...state,
+        isAuthenticated: true,
+        role: action.payload.role,
       };
     default:
       return state;
@@ -49,7 +49,7 @@ export const tokenExpireError = (dispatch, errorMessage) => {
   const role = localStorage.getItem('role');
   if (errorMessage === 'TOKEN_EXPIRED') {
     dispatch({
-      type: 'Logout',
+      type: 'LOGOUT',
     });
     window.location.href = '/' + role + '/login';
   }
@@ -61,7 +61,8 @@ const AuthProvider = ({ children }) => {
   React.useEffect(() => {
     const validToken = async () => {
       const isValid = await sdk.check(localStorage.getItem('role'));
-      if (!isValid?.message.toLowerCase() === 'ok') {
+      if (isValid?.message.toLowerCase() === 'ok') {
+        dispatch({ type: 'USER_VERIFY', payload: { role: 'admin' } });
       }
     };
     validToken();
@@ -80,16 +81,3 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
-
-// Check if token still valid
-// https://reacttask.mkdlabs.com/v2/api/lambda/check
-// Method POST
-// Header
-// x-project cmVhY3R0YXNrOmQ5aGVkeWN5djZwN3p3OHhpMzR0OWJtdHNqc2lneTV0Nw==
-// Bearer <token>
-// body
-// {
-//   "role": "admin"
-// }
-// Response
-// http code 200
