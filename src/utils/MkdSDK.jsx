@@ -91,7 +91,7 @@ export default function MkdSDK() {
           this._baseurl + `/v1/api/rest/${this._table}/${method}`,
           {
             method: 'post',
-            headers: header,
+            headers: this._header,
             body: JSON.stringify(payload),
           }
         );
